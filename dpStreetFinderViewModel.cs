@@ -35,13 +35,13 @@ namespace proStreetFinder
             "(CONNECT_DATA =" +
             "(SERVER = DEDICATED)" +
             "(SERVICE_NAME = donwellpdb)));" +
-            "User Id= proddba;Password=dba01GISjjz;";
+            "User Id= proddba;Password=;";
         //string conStr = "Data Source=(DESCRIPTION =" +
         //    "(ADDRESS = (PROTOCOL = TCP)(HOST = CMHORA-3)(PORT = 1521))" +
         //    "(CONNECT_DATA =" +
         //    "(SERVER = DEDICATED)" +
         //    "(SERVICE_NAME = gis.city.medicine-hat.ab.ca)));" +
-        //    "User Id= testmap;Password=kwp0xt;";
+        //    "User Id= testmap;Password=;";
         #endregion
         private const string _dockPaneID = "proStreetFinder_dpStreetFinder";
         private ObservableCollection<FeatureLayer> _featureLayers = new ObservableCollection<FeatureLayer>();
