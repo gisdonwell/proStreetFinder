@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ArcGIS defaultAssembly="proStreetFinder.dll" defaultNamespace="proStreetFinder" xmlns="http://schemas.esri.com/DADF/Registry" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://schemas.esri.com/DADF/Registry file:///D:/Program%20Files/ArcGIS/Pro/bin/ArcGIS.Desktop.Framework.xsd">
+  <AddInInfo id="{f6bd742f-f3e6-478e-ab93-d90f8eaa575c}" version="1.0" desktopVersion="3.0.36057">
+    <Name>proStreetFinder</Name>
+    <Description>proStreetFinder description</Description>
+    <Image>Images\AddinDesktop32.png</Image>
+    <Author>dbast</Author>
+    <Company>Acme</Company>
+    <Date>1/7/2023 3:50:05 PM</Date>
+    <Subject>Framework</Subject>
+    <!-- Note subject can be one or more of these topics:
+                    Content, Framework, Editing, Geodatabase, Geometry, Geoprocessing, Layouts, Map Authoring, Map Exploration -->
+  </AddInInfo>
+  <conditions>
+    <!-- TODO: Step 2a: Define a custom condition -->
+    <insertCondition id="street_state_condition" caption="Street condition">
+      <state id="street_state" />
+    </insertCondition>
+  </conditions>
+  <modules>
+    <insertModule id="proStreetFinder_Module" className="Module1" autoLoad="false" caption="Module1">
+      <!-- uncomment to have the control hosted on a separate tab-->
+      <tabs>
+        <tab id="CMH_Tools_Tab" caption="CMH Tools">
+          <group refID="proStreetFinder_Group1" />
+        </tab>
+      </tabs>
+      <groups>
+        <!-- comment this out if you have no controls on the Addin tab to avoid
+              an empty group-->
+        <group id="proStreetFinder_Group1" caption="Group 1" appearsOnAddInTab="false">
+          <!-- host controls within groups -->
+          <button refID="proStreetFinder_dpStreetFinder_ShowButton" size="large" />
+        </group>
+      </groups>
+      <controls>
+        <!-- add your controls here -->
+        <button id="proStreetFinder_dpStreetFinder_ShowButton" caption="Street Finder" className="dpStreetFinder_ShowButton" loadOnClick="true" largeImage="Images\AddInDesktop32.png" condition="esri_mapping_mapPane">
+          <tooltip heading="Show Dockpane">Show Dockpane<disabledText /></tooltip>
+        </button>
+      </controls>
+      <dockPanes>
+        <dockPane id="proStreetFinder_dpStreetFinder" caption="Street Finder" className="dpStreetFinderViewModel" dock="group" dockWith="esri_core_projectDockPane">
+          <content className="dpStreetFinderView" />
+        </dockPane>
+      </dockPanes>
+    </insertModule>
+  </modules>
+</ArcGIS>

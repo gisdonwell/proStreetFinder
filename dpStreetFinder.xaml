@@ -1,0 +1,75 @@
+﻿<UserControl x:Class="proStreetFinder.dpStreetFinderView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"   
+             xmlns:ui="clr-namespace:proStreetFinder"
+             xmlns:extensions="clr-namespace:ArcGIS.Desktop.Extensions;assembly=ArcGIS.Desktop.Extensions"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300"
+             d:DataContext="{Binding Path=ui.dpStreetFinderViewModel}">
+  <UserControl.Resources>
+    <ResourceDictionary>
+      <ResourceDictionary.MergedDictionaries>
+        <extensions:DesignOnlyResourceDictionary Source="pack://application:,,,/ArcGIS.Desktop.Framework;component\Themes\Default.xaml"/>
+      </ResourceDictionary.MergedDictionaries>
+    </ResourceDictionary>
+  </UserControl.Resources>
+  <Grid>
+        <Grid.Resources>
+            <Style TargetType="{x:Type Button}">
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding Path=SelectedItem, 
+                                               ElementName=comStreet}" 
+                                               Value="{x:Null}">
+                        <Setter Property="IsEnabled" Value="False" />
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+        </Grid.Resources>
+        <Grid.RowDefinitions>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="Auto"/>
+     </Grid.RowDefinitions>
+    <DockPanel Grid.Row="0" LastChildFill="true" KeyboardNavigation.TabNavigation="Local" Height="30" Grid.ColumnSpan="3">
+      <TextBlock Grid.Column="1" Text="{Binding Heading}" Style="{DynamicResource Esri_TextBlockDockPaneHeader}">
+        <TextBlock.ToolTip>
+          <WrapPanel Orientation="Vertical" MaxWidth="300">
+            <TextBlock Text="{Binding Heading}" TextWrapping="Wrap"/>
+          </WrapPanel>
+        </TextBlock.ToolTip>
+      </TextBlock>
+    </DockPanel>
+        <Grid Grid.Row="1" Margin="5,5,5,5" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <!-- IsChecked="{Binding IsRdoCMHChecked,UpdateSourceTrigger=PropertyChanged}" IsChecked="{Binding IsRdoOtherChecked,UpdateSourceTrigger=PropertyChanged}"-->
+            <RadioButton Grid.Column="0"  Name ="rdoMedicineHat" Content="Medicine Hat" IsChecked="True" Command="{Binding CheckedCMHChangedCommand, UpdateSourceTrigger=PropertyChanged}" CommandParameter="{Binding ElementName=rdoMedicineHat}" Margin="0,0,55,0" HorizontalAlignment="Center"/>
+            <RadioButton Grid.Column="1" Name ="rdoOther" Content="Other"  Command="{Binding CheckedOtherChangedCommand,UpdateSourceTrigger=PropertyChanged}" CommandParameter="{Binding ElementName=rdoOther}" Margin="0,0,55,0" HorizontalAlignment="Center" />
+        </Grid>
+        <Grid Grid.Row="2" Margin="5,7,5,2" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            
+                <!--ItemsSource="{Binding}" SelectedValuePath="OBJECTID" DisplayMemberPath="SelectedStreet" ItemsSource="{Binding SelectedList, Mode=TwoWay}" SelectedItem="{Binding SelectedStreet}" IsChecked="{Binding IsRdoOtherChecked}" Command="{Binding CheckedChangedCommand}" CommandParameter="{Binding ElementName=rdoOther}"-->
+            <ComboBox Grid.Column="0" Name="comStreet" IsDropDownOpen="True" IsEditable="True" ItemsSource="{Binding SelectedList, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" 
+                      SelectedItem="{Binding Path=SelectedStreet,Mode=OneWayToSource}" SelectedIndex="0" Margin="0,0,78,0"/>
+            
+            <Button  Padding="5,0,5,0"               
+                    VerticalAlignment="Center" Margin="0,0,5,1" HorizontalAlignment="Right" 
+                  Command="{Binding FindStreetCommand}"  Width="68" Height="30">
+                <Button.ToolTip>Locate the selected street on the map</Button.ToolTip>
+                <StackPanel Orientation="Horizontal">
+                    <Image VerticalAlignment="Center" MaxWidth="16" Source="pack://application:,,,/ArcGIS.Desktop.Resources;component/Images/ZoomGeneric16.png" />
+                    <TextBlock Text="Find" Margin="3,0,3,0" VerticalAlignment="Center" />
+                </StackPanel>
+            </Button>
+
+        </Grid>
+    </Grid>
+</UserControl>
